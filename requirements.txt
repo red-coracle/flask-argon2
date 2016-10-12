@@ -1,1 +1,1 @@
-argon2-cffi==16.1.0
+argon2-cffi==16.2.0
