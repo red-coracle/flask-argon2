@@ -28,6 +28,7 @@ class BasicTestCase(unittest.TestCase):
         pw_hash = self.argon2.generate_password_hash('secret')
         self.assertFalse(self.argon2.check_password_hash(pw_hash, 'hunter2'))
 
+
 class OverridesTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -36,7 +37,7 @@ class OverridesTestCase(unittest.TestCase):
 
     def test_changed_parallelism(self):
         pw_hash = self.argon2.generate_password_hash('secret')
-        self.assertTrue(self.argon2.parallelism==3)
+        self.assertTrue(self.argon2.parallelism == 3)
         self.assertTrue(self.argon2.check_password_hash(pw_hash, 'secret'))
 
 if __name__ == '__main__':
