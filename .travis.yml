@@ -7,8 +7,15 @@ python:
   - 3.4
   - 3.5
   - "3.5-dev"
+  - 3.6
   - "3.6-dev"
+  - "3.7-dev"
   - "nightly"
+  - "pypy3"
+
+matrix:
+  allow_failures:
+    - python: pypy3
 
 install:
   - pip install .
