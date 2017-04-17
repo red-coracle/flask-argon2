@@ -37,7 +37,7 @@ def generate_password_hash(password):
     words, this shortcut does not make use of the app object at all.
     To use this function, simply import it from the module and use it in a
     similar fashion as using the method. Here is a quick example::
-        from flask.ext.argon2 import generate_password_hash
+        from flask_argon2 import generate_password_hash
         pw_hash = generate_password_hash('hunter2')
 
     :param password: The password to be hashed.
@@ -55,7 +55,7 @@ def check_password_hash(pw_hash, password):
     To use this function, simply import it from the module and use it in a
     similar fashion as using the method. Here is a quick example::
 
-        from flask.ext.argon2 import check_password_hash
+        from flask_argon2 import check_password_hash
         check_password_hash(pw_hash, 'hunter2') # returns True
 
     :param pw_hash: The hash to be compared against.
