@@ -11,10 +11,12 @@ python:
   - "3.6-dev"
   - "3.7-dev"
   - "nightly"
+  - "pypy"
   - "pypy3"
 
 matrix:
   allow_failures:
+    - python: pypy
     - python: pypy3
 
 install:

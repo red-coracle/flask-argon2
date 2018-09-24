@@ -12,7 +12,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 # from sys import version_info
 
-__version_info__ = ('0', '1', '2', '2')
+__version_info__ = ('0', '1', '3', '0')
 __version__ = '.'.join(__version_info__)
 __author__ = 'DominusTemporis'
 __license__ = 'MIT'
