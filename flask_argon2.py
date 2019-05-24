@@ -12,11 +12,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 # from sys import version_info
 
-__version_info__ = ('0', '1', '3', '0')
+__version_info__ = ('0', '1', '4', '0')
 __version__ = '.'.join(__version_info__)
 __author__ = 'DominusTemporis'
 __license__ = 'MIT'
-__copyright__ = 'Copyright (c) 2018 DominusTemporis'
+__copyright__ = 'Copyright (c) 2019 DominusTemporis'
 __all__ = ['Argon2', 'generate_password_hash', 'check_password_hash']
 
 try:
