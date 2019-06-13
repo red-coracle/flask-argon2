@@ -7,13 +7,13 @@ python:
   - 3.5
   - 3.6
   - 3.7
-  - "3.8-dev"
   - "nightly"
   - "pypy"
   - "pypy3"
 
 matrix:
   allow_failures:
+    - python: "nightly"
     - python: pypy
     - python: pypy3
 
