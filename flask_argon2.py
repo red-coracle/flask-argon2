@@ -21,7 +21,7 @@ __all__ = ['Argon2', 'generate_password_hash', 'check_password_hash']
 
 try:
     import argon2
-    from argon2.exceptions import VerifyMismatchError
+    from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHash
 except ImportError as e:
     print('argon2_cffi is required to use Flask-Argon2')
     raise e
@@ -182,4 +182,8 @@ class Argon2(object):
         try:
             return self.ph.verify(pw_hash, password)
         except VerifyMismatchError:
+            return False
+        except VerificationError:
+            return False
+        except InvalidHash:
             return False

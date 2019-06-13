@@ -27,6 +27,10 @@ class BasicTestCase(unittest.TestCase):
     def test_hash_error(self):
         pw_hash = self.argon2.generate_password_hash('secret')
         self.assertFalse(self.argon2.check_password_hash(pw_hash, 'hunter2'))
+    
+    def test_hash_invalid_hash(self):
+        """ Check that an InvalidHash is raised when an unhased password is used. """
+        self.assertFalse(self.argon2.check_password_hash('secret', 'hunter2'))
 
 
 class OverridesTestCase(unittest.TestCase):
