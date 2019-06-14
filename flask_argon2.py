@@ -21,7 +21,7 @@ __all__ = ['Argon2', 'generate_password_hash', 'check_password_hash']
 
 try:
     import argon2
-    from argon2.exceptions import VerifyMismatchError
+    from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHash
 except ImportError as e:
     print('argon2_cffi is required to use Flask-Argon2')
     raise e
@@ -128,6 +128,24 @@ class Argon2(object):
                                         self.hash_len,
                                         self.salt_len,
                                         self.encoding)
+    
+    def init_app(self, app):
+        '''Initalizes the application with the extension.
+        :param app: The Flask application object.
+        '''
+        self.time_cost = app.config.get('ARGON2_TIME_COST', self._time_cost)
+        self.memory_cost = app.config.get('ARGON2_MEMORY_COST', self._memory_cost)
+        self.parallelism = app.config.get('ARGON2_PARALLELISM', self._parallelism)
+        self.hash_len = app.config.get('ARGON2_HASH_LENGTH', self._hash_len)
+        self.salt_len = app.config.get('ARGON2_SALT_LENGTH', self._salt_len)
+        self.encoding = app.config.get('ARGON2_ENCODING', self._encoding)
+        self.ph = argon2.PasswordHasher(self.time_cost,
+                                        self.memory_cost,
+                                        self.parallelism,
+                                        self.hash_len,
+                                        self.salt_len,
+                                        self.encoding)
+
 
     def generate_password_hash(self, password):
         '''Generates a password hash using argon2.
@@ -164,4 +182,8 @@ class Argon2(object):
         try:
             return self.ph.verify(pw_hash, password)
         except VerifyMismatchError:
+            return False
+        except VerificationError:
+            return False
+        except InvalidHash:
             return False
