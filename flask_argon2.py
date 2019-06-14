@@ -4,7 +4,7 @@
 
     A Flask extension providing argon2 hashing and comparison.
 
-    :copyright: (c) 2016 by DominusTemporis.
+    :copyright: (c) 2019 by DominusTemporis.
     :license: MIT, see LICENSE for more details.
 """
 
@@ -12,7 +12,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 # from sys import version_info
 
-__version_info__ = ('0', '1', '4', '0')
+__version_info__ = ('0', '1', '5', '0')
 __version__ = '.'.join(__version_info__)
 __author__ = 'DominusTemporis'
 __license__ = 'MIT'
