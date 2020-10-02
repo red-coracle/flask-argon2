@@ -32,7 +32,7 @@ The following Flask Configs are automatically used by `init_app()`:
 |`ARGON2_HASH_LENGTH`|Length of the hash in bytes.|
 |`ARGON2_SALT_LENGTH`|Length of random salt to be generated for each password.|
 |`ARGON2_ENCODING`|The Argon2 C library expects bytes. So if hash() or verify() are passed an unicode string, it will be encoded using this encoding.|
-The default values are the same than for the [argon2_cffi Libary](https://argon2-cffi.readthedocs.io/en/stable/api.html#argon2.PasswordHasher).
+The default values are the same as the [argon2_cffi library](https://argon2-cffi.readthedocs.io/en/stable/api.html#argon2.PasswordHasher).
 
 Two primary methods are now exposed by way of the argon2 object. Use
 them like so:
