@@ -1,2 +1,2 @@
-argon2_cffi>=19.1.0
-Flask>=1.0.3
+argon2_cffi>=20.1.0
+Flask>=1.*
