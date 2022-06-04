@@ -4,13 +4,10 @@
 
     A Flask extension providing argon2 hashing and comparison.
 
-    :copyright: (c) 2019 by DominusTemporis.
+    :copyright: (c) 2022 by red-coracle.
     :license: MIT, see LICENSE for more details.
 """
 
-from __future__ import absolute_import
-from __future__ import print_function
-# from sys import version_info
 
 __version_info__ = ('0', '2', '0', '0')
 __version__ = '.'.join(__version_info__)
@@ -25,8 +22,6 @@ try:
 except ImportError as e:
     print('argon2_cffi is required to use Flask-Argon2')
     raise e
-
-# PY3 = version_info[0] >= 3
 
 
 def generate_password_hash(password):
@@ -110,42 +105,47 @@ class Argon2(object):
 
     def __init__(self,
                  app=None,
-                 time_cost=_time_cost,
-                 memory_cost=_memory_cost,
-                 parallelism=_parallelism,
-                 hash_len=_hash_len,
-                 salt_len=_salt_len,
-                 encoding=_encoding):
+                 time_cost: int = None,
+                 memory_cost: int = None,
+                 parallelism: int = None,
+                 hash_len: int = None,
+                 salt_len: int = None,
+                 encoding: str = None):
+        # Keep for backwards compatibility
         self.time_cost = time_cost
         self.memory_cost = memory_cost
         self.parallelism = parallelism
         self.hash_len = hash_len
         self.salt_len = salt_len
         self.encoding = encoding
-        self.ph = argon2.PasswordHasher(self.time_cost,
-                                        self.memory_cost,
-                                        self.parallelism,
-                                        self.hash_len,
-                                        self.salt_len,
-                                        self.encoding)
-    
+        self.init_app(app)
+
     def init_app(self, app):
         '''Initalizes the application with the extension.
         :param app: The Flask application object.
         '''
-        self.time_cost = app.config.get('ARGON2_TIME_COST', self._time_cost)
-        self.memory_cost = app.config.get('ARGON2_MEMORY_COST', self._memory_cost)
-        self.parallelism = app.config.get('ARGON2_PARALLELISM', self._parallelism)
-        self.hash_len = app.config.get('ARGON2_HASH_LENGTH', self._hash_len)
-        self.salt_len = app.config.get('ARGON2_SALT_LENGTH', self._salt_len)
-        self.encoding = app.config.get('ARGON2_ENCODING', self._encoding)
+
+        self.time_cost = self.time_cost or self._time_cost
+        self.memory_cost = self.memory_cost or self._memory_cost
+        self.parallelism = self.parallelism or self._parallelism
+        self.hash_len = self.hash_len or self._hash_len
+        self.salt_len = self.salt_len or self._salt_len
+        self.encoding = self.encoding or self._encoding
+
+        if app is not None:
+            self.time_cost = app.config.get('ARGON2_TIME_COST', self.time_cost)
+            self.memory_cost = app.config.get('ARGON2_MEMORY_COST', self.memory_cost)
+            self.parallelism = app.config.get('ARGON2_PARALLELISM', self.parallelism)
+            self.hash_len = app.config.get('ARGON2_HASH_LENGTH', self.hash_len)
+            self.salt_len = app.config.get('ARGON2_SALT_LENGTH', self.salt_len)
+            self.encoding = app.config.get('ARGON2_ENCODING', self.encoding)
+
         self.ph = argon2.PasswordHasher(self.time_cost,
                                         self.memory_cost,
                                         self.parallelism,
                                         self.hash_len,
                                         self.salt_len,
                                         self.encoding)
-
 
     def generate_password_hash(self, password):
         '''Generates a password hash using argon2.
@@ -157,13 +157,6 @@ class Argon2(object):
 
         if not password:
             raise ValueError('Password must be non-empty.')
-
-        # if PY3:
-        #     if isinstance(password, str):
-        #         password = bytes(password, 'utf-8')
-        # else:
-        #     if isinstance(password, unicode):
-        #         password = password.encode('utf-8')
 
         return self.ph.hash(password)
 
