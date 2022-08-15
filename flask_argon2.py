@@ -9,7 +9,7 @@
 """
 
 
-__version_info__ = ('0', '2', '0', '0')
+__version_info__ = ('0', '3', '0', '0')
 __version__ = '.'.join(__version_info__)
 __author__ = 'red-coracle'
 __license__ = 'MIT'
